@@ -19,7 +19,7 @@ void testcase_0001()
 {
 	vector<int> nums{ 2, 7, 11, 15 };
 	vector<int> res = twoSum(nums, 9);
-	printf("%d %d", res[0], res[1]);
+	printf("%d %d\n", res[0], res[1]);
 }
 
 #endif

@@ -9,3 +9,13 @@
 Explanation: The simplest way is to sort the array and use two pointers from start and end, but the complexity is O(nlgn). Another way
 is to maintain a hash map, key is array value, value is array index, if you can't find key "target minus current value", that means there
 is no pair, then keep this value in hash map, otherwise, that means the existing index in hash map and current index are pair.
+
+
+0002 Add Two Numbers
+
+[Description](https://leetcode.com/problems/add-two-numbers/)
+
+[Solution](0002AddTwoNumbers.h)
+
+Explanation: It's quite straightforward, the only thing need to concern is to notice the carry number and the highest position. Because 
+the last number plus carry may be larger than 10

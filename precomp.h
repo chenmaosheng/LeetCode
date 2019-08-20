@@ -1,3 +1,6 @@
+#ifndef __H_PRECOMP__
+#define __H_PRECOMP__
+
 #include <cstdio>
 #include <vector>
 #include <map>
@@ -40,3 +43,5 @@ struct Point {
 	Point() : x(0), y(0) {}
 	Point(int a, int b) : x(a), y(b) {}
 };
+
+#endif
