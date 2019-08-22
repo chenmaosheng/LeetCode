@@ -33,13 +33,13 @@ void testcase_0002()
 	ListNode a1(2), a2(4), a3(3), b1(5), b2(6), b3(4);
 	a1.next = &a2; a2.next = &a3; b1.next = &b2; b2.next = &b3;
 	ListNode* res = addTwoNumbers(&a1, &b1);
+	printf("0002: ");
 	while (res)
 	{
 		printf("%d ", res->val);
 		res = res->next;
 	}
 	printf("\n");
-	
 }
 
 #endif

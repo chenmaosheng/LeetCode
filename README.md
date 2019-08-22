@@ -19,3 +19,12 @@ is no pair, then keep this value in hash map, otherwise, that means the existing
 
 Explanation: It's quite straightforward, the only thing need to concern is to notice the carry number and the highest position. Because 
 the last number plus carry may be larger than 10
+
+0003 Longest Substring Without Repeating Characters
+
+[Description](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
+[Solution](0003.h)
+
+Explanation: use a map to store character and its last index. If map doesn't have this character, that means first occurence. Otherwise, 
+from the index stored in map, to this same character index, these characters are uniqueness. Then use current index instead and loop.
