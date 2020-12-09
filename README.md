@@ -1,16 +1,12 @@
+LeetCode
+========
+
 #LeetCode one by one
 
-0001 Two Sum
 
-[Description](https://leetcode.com/problems/two-sum)
-
-[Solution](0001TwoSum.h)
-
-Explanation: The simplest way is to sort the array and use two pointers from start and end, but the complexity is O(nlgn). Another way
-is to maintain a hash map, key is array value, value is array index, if you can't find key "target minus current value", that means there
-is no pair, then keep this value in hash map, otherwise, that means the existing index in hash map and current index are pair.
-
-
+| # | Title | Solution | Difficulty | Readme |
+|---| ----- | -------- | ---------- | ------ |
+|1|[Two Sum](https://leetcode.com/problems/two-sum/)| [C++](./algorithms/0001.Two-Sum/Two-Sum.cpp)|Easy| [Readme](./algorithms/0001.Two-Sum/README.md)|
 0002 Add Two Numbers
 
 [Description](https://leetcode.com/problems/add-two-numbers/)

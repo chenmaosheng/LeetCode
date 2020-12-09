@@ -1,7 +1,4 @@
-#ifndef __0001__
-#define __0001__
-
-#include "precomp.h"
+#include "..\..\..\precomp.h"
 
 vector<int> twoSum(vector<int>& nums, int target) {
 	unordered_map<int, int> m;
@@ -15,11 +12,11 @@ vector<int> twoSum(vector<int>& nums, int target) {
 	return vector<int>{-1, -1};
 }
 
-void testcase_0001()
+int main()
 {
 	vector<int> nums{ 2, 7, 11, 15 };
 	vector<int> res = twoSum(nums, 9);
 	printf("0001: %d %d\n", res[0], res[1]);
+	
+	return 0;
 }
-
-#endif
