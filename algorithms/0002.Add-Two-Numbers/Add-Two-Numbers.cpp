@@ -1,7 +1,4 @@
-#ifndef __0002__
-#define __0002__
-
-#include "precomp.h"
+#include "../precomp.h"
 
 ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 	if (!l1 || !l2) return l1 ? l1 : l2;
@@ -28,18 +25,16 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 	return head->next;
 }
 
-void testcase_0002()
+int main(int argc, char* argv[])
 {
 	ListNode a1(2), a2(4), a3(3), b1(5), b2(6), b3(4);
 	a1.next = &a2; a2.next = &a3; b1.next = &b2; b2.next = &b3;
 	ListNode* res = addTwoNumbers(&a1, &b1);
-	printf("0002: ");
 	while (res)
 	{
 		printf("%d ", res->val);
 		res = res->next;
 	}
 	printf("\n");
+	return 0;
 }
-
-#endif

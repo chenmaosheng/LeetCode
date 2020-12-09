@@ -7,11 +7,7 @@ LeetCode
 | # | Title | Solution | Difficulty | Readme |
 |---| ----- | -------- | ---------- | ------ |
 |1|[Two Sum](https://leetcode.com/problems/two-sum/)| [C++](./algorithms/0001.Two-Sum/Two-Sum.cpp)|Easy| [Readme](./algorithms/0001.Two-Sum/README.md)|
-0002 Add Two Numbers
-
-[Description](https://leetcode.com/problems/add-two-numbers/)
-
-[Solution](0002AddTwoNumbers.h)
+|2|[Add Two Numbers](https://leetcode.com/problems/add-two-numbers/)| [C++](./algorithms/0002.Add-Two-Numbers/Add-Two-Numbers.cpp)|Medium| [Readme](./algorithms/0002.Add-Two-Numbers/README.md)|
 
 Explanation: It's quite straightforward, the only thing need to concern is to notice the carry number and the highest position. Because 
 the last number plus carry may be larger than 10
