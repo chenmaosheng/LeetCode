@@ -1,7 +1,4 @@
-#ifndef __0003__
-#define __0003__
-
-#include "precomp.h"
+#include "../precomp.h"
 
 int lengthOfLongestSubstring(string s) {
 	unordered_map<char, int> m;
@@ -16,10 +13,9 @@ int lengthOfLongestSubstring(string s) {
 	return res;
 }
 
-void testcase_0003()
+int main(int argc, char* argv[])
 {
 	int res = lengthOfLongestSubstring("pwwkew");
-	printf("0003: %d\n", res);
+	printf("%d\n", res);
+	return 0;
 }
-
-#endif
