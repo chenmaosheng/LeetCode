@@ -20,6 +20,7 @@
 #include <atomic>
 #include <thread>
 #include <new>
+#include <cmath>
 
 using namespace std;
 
