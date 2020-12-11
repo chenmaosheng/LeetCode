@@ -1,16 +1,16 @@
 ## Solution
 
 # BST
-all nodes left of node are smaller than node, all nodes right of node are bigger than node
+all nodes in left subtree are smaller than node, all nodes in right subtree are bigger than node
 
 # BST insert
 
-if smaller than node, insert to left, otherwise insert to right
+if smaller than node, insert to left subtree, otherwise insert to right subtree
 
 
 # BST search
 
-if equal return result, if smaller than node, search left, otherwise search right
+if equal return result, if smaller than node, search left subtree, otherwise search right subtree
 
 # BST delete
 
@@ -22,4 +22,4 @@ if child is left only, then replace with left, if child is right only, then repl
 
 2, node has 2 children
 
-Go to right and find the minimal value in right, use it to replace node. And next step is to remove the minimal value node. Then go to right and delete this minimal value
+Go to right subtree and find the minimal value in right subtree, use it to replace node. And next step is to remove the minimal value node. Then go to right subtree and delete this minimal value
