@@ -35,69 +35,73 @@ void rb_print(RBNode* node)
 	printf("\n\n");
 }
 
-RBNode* rb_right_rotate(RBNode*& root, RBNode* node)
+void rb_left_rotate(RBNode*& root, RBNode* node)
 {
-	RBNode* parent = node->parent, *grandparent = parent->parent;
-	// step 1: parent left child is node right child
-	parent->left = node->right;
-	// step 2: node right child's parent is parent
-	if (node->right)
-		node->right->parent = parent;
-	// step 3: node parent is grandparent
-	node->parent = grandparent;
-	// step 4: grandparent left child is node
-	if (grandparent == nullptr)
-		root = node;
-	else if (grandparent->left == parent)
-		grandparent->left = node;
+	// node is the rotate point
+	RBNode* y = node->right;
+	// step 1: right child is right child's left child
+	node->right = y->left;
+	// step 2: right child's left child's parent is node
+	if (y->left)
+		y->left->parent = node;
+	// step 3: right child's parent is node's parent
+	y->parent = node->parent;
+	// step 4: parent left or right child is right child
+	if (node == root)
+		root = y;
+	else if (node == node->parent->left)
+		node->parent->left = y;
 	else
-		grandparent->right = node;
-	// step 5: node right child is parent
-	node->right = parent;
-	// step 6: parent's parent is node
-	parent->parent = node;
-	return node;
+		node->parent->right = y;
+	// step 5: right child's left child is node
+	y->left = node;
+	// step 6: parent is right child
+	node->parent = y;
 }
 
-RBNode* rb_left_rotate(RBNode*& root, RBNode* node)
+void rb_right_rotate(RBNode*& root, RBNode* node)
 {
-	RBNode* parent = node->parent, *grandparent = parent->parent;
-	// step 1: parent right child is node left child
-	parent->right = node->left;
-	// step 2: node left child's parent is parent
-	if (node->left)
-		node->left->parent = parent;
-	// step 3: node parent is grandparent
-	node->parent = grandparent;
-	// step 4: grandparent left or right child is node
-	if (grandparent == nullptr)
-		root = node;
-	else if (grandparent->left == parent)
-		grandparent->left = node;
+	RBNode* y = node->left;
+	// step 1: left child is left child's right child
+	node->left = y->right;
+	// step 2: left child's right child's parent is node
+	if (y->right)
+		y->right->parent = node;
+	// step 3: left child's parent is node's parent
+	y->parent = node->parent;
+	// step 4: parent left or right child is left child
+	if (root == node)
+		root = y;
+	else if (node->parent->left == node)
+		node->parent->left = y;
 	else
-		grandparent->right = node;
-	// step 5: node left child is parent
-	node->left = parent;
-	// step 6: parent's parent is node
-	parent->parent = node;
-	
-	return node;
+		node->parent->right = y;
+	// step 5: lfet child's right child is node
+	y->right = node;
+	// step 6: parent is left child
+	node->parent = y;
 }
 
-RBNode* rb_bst_insert(RBNode* node, RBNode* new_node)
+RBNode* rb_bst_insert(RBNode*& root, RBNode* node)
 {
-	if (node == nullptr) return new_node;
-	if (node->val > new_node->val)
+	if (root == nullptr)
 	{
-		node->left = rb_bst_insert(node->left, new_node);
- 		node->left->parent = node;
+		root = node;
 	}
-	else if (node->val < new_node->val)
+	else
 	{
-		node->right = rb_bst_insert(node->right, new_node);
-		node->right->parent = node;
+		if (root->val > node->val)
+		{
+			root->left = rb_bst_insert(root->left, node);
+			root->left->parent = root;
+		}
+		else
+		{
+			root->right = rb_bst_insert(root->right, node);
+			root->right->parent = root;
+		}
 	}
-	return node;
+	return root;
 }
 
 void rb_insert(RBNode*& root, int val)
@@ -105,92 +109,65 @@ void rb_insert(RBNode*& root, int val)
 	RBNode* new_node = new RBNode(val);
 	root = rb_bst_insert(root, new_node);
 
-	// case 1: new node is root
-	if (new_node == root)
+	while (new_node != root &&				// case 1: new node is root
+		new_node->parent->color == RED)		// case 2: new node's parent is RED
 	{
-		root->color = BLACK;
-	}
-	// case 2: new node's parent is BLACK
-	else if (new_node->parent->color == BLACK)
-	{
-		// do nothing
-	}
-	else
-	{
-		// case 3: new node's parent is RED
-		while (new_node->parent->color == RED)
+		// case 3.1 new node's parent is left child of grandparent
+		if (new_node->parent == new_node->parent->parent->left)
 		{
-			// case 3.1 new node's uncle is RED
-			RBNode* parent = new_node->parent, *grandparent = parent->parent;
-			// case 3.1.1 new node's parent is left child of grandparent
-			if (parent->val < grandparent->val && grandparent->right && grandparent->right->color == RED)
+			RBNode* uncle = new_node->parent->parent->right;
+			// case 3.1.1 new node's uncle is RED
+			if (uncle && uncle->color == RED)
 			{
-				parent->color = BLACK;
-				grandparent->right->color = BLACK;
-				grandparent->color = RED;
-				// need to continue and set X as grandparent
-				if (grandparent->val != root->val)
-					new_node = grandparent;
-				else
-					break;
+				new_node->parent->color = BLACK;
+				uncle->color = BLACK;
+				new_node->parent->parent->color = RED;
+				new_node = new_node->parent->parent;	// repeat
 			}
-			// case 3.1.2 new node's parent is right child of grandparent
-			else if (parent->val > grandparent->val && grandparent->left && grandparent->left->color == RED)
+			// case 3.1.2 new node's uncle is BLACK or no uncle
+			else
 			{
-				parent->color = BLACK;
-				grandparent->left->color = BLACK;
-				grandparent->color = RED;
-				// need to continue and set X as grandparent
-				if (grandparent->val != root->val)
-					new_node = grandparent;
-				else
-					break;
+				// case 3.1.2.1 new node is left child of parent, do a right rotate on parent node
+				// case 3.1.2.2 new node is right child of parent, do a left rotate on parent node, and then a right rotate on grandparent node
+				if (new_node == new_node->parent->right)
+				{
+					new_node = new_node->parent;
+					rb_left_rotate(root, new_node);
+				}
+				new_node->parent->color = BLACK;
+				new_node->parent->parent->color = RED;
+				rb_right_rotate(root, new_node->parent->parent);
 			}
-			// case 3.2 new node's uncle is BLACK and is right child of grandparent
-			else if (parent->val < grandparent->val && (grandparent->right == nullptr || grandparent->right->color == BLACK))
+		}
+		// case 3.2 new node's parent is right child of grandparent
+		else
+		{
+			RBNode* uncle = new_node->parent->parent->left;
+			// case 3.2.1 new node's uncle is RED
+			if (uncle && uncle->color == RED)
 			{
-				// case 3.2.1 new node is left child of parent, do a right rotate on parent node
-				if (new_node->val < parent->val)
-				{
-					parent = rb_right_rotate(root, parent);
-					parent->color = BLACK;
-					parent->right->color = RED;
-				}
-				// case 3.2.2 new node is right child of parent, do a left rotate on new node, and then a right rotate on new node
-				else if (new_node->val > parent->val)
-				{
-					new_node = rb_left_rotate(root, new_node);
-					new_node = rb_right_rotate(root, new_node);
-					new_node->color = BLACK;
-					new_node->right->color = RED;
-				}
-				break;
+				new_node->parent->color = BLACK;
+				uncle->color = BLACK;
+				new_node->parent->parent->color = RED;
+				new_node = new_node->parent->parent;
 			}
-			// case 3.3 new node's uncle is BLACK and is left child of grandparent
-			else if (parent->val > grandparent->val && (grandparent->left == nullptr || grandparent->left->color == BLACK))
+			else
 			{
-				// case 3.3.1 new node is right child of parent, do a left rotate on parent node
-				if (new_node->val > parent->val)
+				// case 3.2.2.1 new node is right child of parent, do a left rotate on parent node
+				// case 3.2.2.2 new node is left child of parent, do a right rotate on parent code and then a left rotate on grandparent node
+				if (new_node == new_node->parent->left)
 				{
-					parent = rb_left_rotate(root, parent);
-					parent->color = BLACK;
-					parent->left->color = RED;
+					new_node = new_node->parent;
+					rb_right_rotate(root, new_node);
 				}
-				// case 3.3.2 new node is left child of parent, do a right rotate on new node and then a left rotate on new node
-				else if (new_node->val < parent->val)
-				{
-					new_node = rb_right_rotate(root, new_node);
-					new_node = rb_left_rotate(root, new_node);
-					new_node->color = BLACK;
-					new_node->left->color = RED;
-				}
-				break;
+				new_node->parent->color = BLACK;
+				new_node->parent->parent->color = RED;
+				rb_left_rotate(root, new_node->parent->parent);
 			}
 		}
 	}
-	
-	root->color = BLACK;
 
+	root->color = BLACK;
 	rb_print(root);
 }
 
