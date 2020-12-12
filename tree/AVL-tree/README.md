@@ -7,29 +7,37 @@ It is a balanced binary tree.
 
 # Left rotate
 
-       x
+      x
+     /
    y
+  / \
 z    k
 
 ->
 
       y
-    z     z
-        k
+     /  \
+    z    z
+        /
+       k
 
 left rotate means k becomes left of x, and x become right of y
 
 # Right rotate
 
    x
-        y
-      z   k
+    \    
+      y
+     / \
+    z   k
 
 ->
 
       y
-  x
-    z   k
+    /  \
+   x    k
+    \
+     z   
 
 right rotate means z becomes right of x, and x become left of y
 

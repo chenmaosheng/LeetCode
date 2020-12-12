@@ -188,7 +188,7 @@ int main(int argc, char* argv[])
 	ins = avl_delete(ins, 25);
 	ins = avl_delete(ins, 55);
 	ins = avl_insert(ins, 42);
-	//ins = avl_delete(ins, 70);
+	ins = avl_delete(ins, 70);
 	vector<int> res;
 	preorder(ins, res);
 	for (int i = 0; i < res.size(); ++i)

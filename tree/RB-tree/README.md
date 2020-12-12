@@ -1,0 +1,3 @@
+## Solution
+
+# Red black tree
