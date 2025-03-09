@@ -27,12 +27,12 @@ vector<int> findSubstring(string s, vector<string>& words)
                 i += word_len;
             }
             else break;
-        }
-
-        if (count == words.size())
-        {
-            res.push_back(l);
-            break;
+            if (count == words.size())
+            {
+                res.push_back(l);
+                break;
+            }
         }
     }
+    return res;
 }

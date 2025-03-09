@@ -17,6 +17,8 @@ string longestCommonPrefix(vector<string>& strs)
                 break;
             }
         }
+        if (same) res.push_back(c);
+        else break;
     }
-    
+    return res;
 }
